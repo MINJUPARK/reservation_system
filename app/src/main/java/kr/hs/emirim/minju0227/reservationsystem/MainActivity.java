@@ -1,5 +1,7 @@
 package kr.hs.emirim.minju0227.reservationsystem;
 
+import android.graphics.Color;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.RadioButton;
 import android.widget.CalendarView;
 import android.widget.TimePicker;
 import android.widget.TextView;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,11 +47,38 @@ public class MainActivity extends AppCompatActivity {
                 calView.setVisibility(View.VISIBLE); // 캘린더뷰는 보이게
             }
         });
+
         radioTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 timePick.setVisibility(View.VISIBLE); // 타임피커는 보이게
                 calView.setVisibility(View.INVISIBLE); // 캘린더뷰는 안보이게
+            }
+        });
+
+        butStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chrono.setBase(SystemClock.elapsedRealtime());
+                chrono.start();
+                chrono.setTextColor(Color.RED);
+            }
+        });
+
+        butDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chrono.stop();
+                chrono.setTextColor(Color.BLUE);
+                Calendar cal=Calendar.getInstance();
+                cal.setTimeInMillis(calView.getDate());
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH)+1;
+                int date = cal.get(Calendar.DATE);
+                /*int hour = timePick.getHour();
+                int minute = timePick.getMinute();*/
+                String dateAndTime = year+"년 "+month+"월 "+date+"일 "/*+hour+"시 "+minute+"분 "*/;
+                textResult.setText(dateAndTime);
             }
         });
     }
