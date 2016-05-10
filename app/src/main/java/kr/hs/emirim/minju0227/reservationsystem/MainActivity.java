@@ -35,6 +35,21 @@ public class MainActivity extends AppCompatActivity {
         timePick.setVisibility(View.INVISIBLE);
         calView.setVisibility(View.INVISIBLE);
 
-
+        // EventHandler (익명클래스 (이름 없이 클래스를 구현 + 객체 생성))
+        // 이벤트 핸들러와 이벤트 소스를 연결 : EventListner
+        radioDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timePick.setVisibility(View.INVISIBLE); // 타임피커는 안보이게
+                calView.setVisibility(View.VISIBLE); // 캘린더뷰는 보이게
+            }
+        });
+        radioTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timePick.setVisibility(View.VISIBLE); // 타임피커는 보이게
+                calView.setVisibility(View.INVISIBLE); // 캘린더뷰는 안보이게
+            }
+        });
     }
 }
